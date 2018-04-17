@@ -108,7 +108,7 @@ fixed4 frag (v2f i) : SV_Target
 
 `fixed3 rimColor = _RimLightColor * pow(rim, _RimLightIntensity);`
 
-编写完shader后，回到unity编辑器。如果没有错的话，可以看到场景中的小球带有一定的描边效果了。
+编写完shader后，回到unity编辑器。如果没有错的话，可以看到场景中的小球带有一定的描边效果了。完整的shader代码在scripts\RimLight.shader文件里。
 
 ## 总结
 RimLight边缘光虽然简单，但是效果有限。可以试一下往场景中添加一个圆柱体，并将RimLight材质赋给它。此时很容易发现圆柱体的上下面处是没有边缘光的，这并不是我们想要的效果。RimLight的问题在于，它计算边缘的算法是有缺陷的。简单的计算视角方向和表面法线的夹角并不能求出我们想要的边缘。在其它几篇文章中，我会写一些更好看的描边算法。
