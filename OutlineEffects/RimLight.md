@@ -9,9 +9,11 @@
 ![img02](http://www.cherryfrog.net/images/blogs/outline-rimlight-002.jpg)
 
 在代码中，我们使用CG内置的点乘运算（dot函数）来计算两个向量夹角的余弦值。有关dot函数的更多原理与本文无关，如果不了解该函数，请先记住下面的结论：dot函数的输入为两个向量，返回值越接近0，说明两个向量越接近垂直。在已知**归一化**的视角向量viewDir和表面法线向量normalDir后，它们之间的夹角的余弦值可以表示为：dot(viewDir, normalDir)。由于点乘值可能为负，但计算光照时不应该出现负数，因此要用max函数将点乘值约束到非负区间，即：
+
 ![img03](http://www.cherryfrog.net/images/blogs/outline-rimlight-003.png)
 
 上面这个式子的值在0到1之间。物体表面某点越接近边缘，该值越低。为了便于思考，我们对上面的式子稍作修改，变为：
+
 ![img04](http://www.cherryfrog.net/images/blogs/outline-rimlight-004.png)
 
 这样一来，物体表面某点越接近边缘，rim值越高。我们就可以使用rim值来计算边缘光了。
@@ -55,7 +57,7 @@ struct v2f
 {
 	float4 pos : SV_POSITION;
 	float2 uv : TEXCOORD0;
-float3 worldNormal : TEXCOORD1;
+	float3 worldNormal : TEXCOORD1;
 	float3 worldPos : TEXCOORD2;
 };
 ```
