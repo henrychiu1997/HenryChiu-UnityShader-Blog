@@ -339,7 +339,11 @@ OnRenderImage(RenderTexture source, RenderTexture destination)函数使得我们
 完成模糊处理后，preTexture2最终被存放到了temp2中。接下来把temp2传给_BlurTex，renderTexture传给_MainTex，调用第三个pass完成preTexture2 - preTexture1的过程，最终结果被存放到了temp1中。
 在将temp1传给_BlurTex，source传给_MainTex，调用最后一个pass把两个纹理相叠加，最终结果存放到destination中。
 
-编写好代码后，回到Unity编辑器，把脚本绑定到主相机上。新建Outline.mat材质，把PostOutline.shader赋给材质。再把Outline材质和PreOutline Shader赋给脚本。运行游戏，就可以看到效果了。
+编写好代码后，回到Unity编辑器，把脚本绑定到主相机上。新建Outline.mat材质，把PostOutline.shader赋给材质。再把Outline材质和PreOutline Shader赋给脚本。
+![img04](http://www.cherryfrog.net/images/blogs/outline-postpro-02.png)
+运行游戏，就可以看到效果了。
 
 ## 总结
 本文讲述的这种描边方法比较复杂，但比较有用。而且其中涉及到的数字图像处理、渲染管线控制等知识都是很实用的，运动模糊、旧电影风格、画面叠加等游戏特效都需要用到这些知识。
+本文中用到的脚本和shader在Scripts/PostProcessing目录下。
+（关于高斯模糊Pass那段shader有点问题，但不影响最后效果，以后有空再来改）
