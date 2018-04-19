@@ -347,3 +347,6 @@ OnRenderImage(RenderTexture source, RenderTexture destination)函数使得我们
 本文讲述的这种描边方法比较复杂，但比较有用。而且其中涉及到的数字图像处理、渲染管线控制等知识都是很实用的，运动模糊、旧电影风格、画面叠加等游戏特效都需要用到这些知识。
 本文中用到的脚本和shader在Scripts/PostProcessing目录下。
 （关于高斯模糊Pass那段shader有点问题，但不影响最后效果，以后有空再来改）
+
+## 参考博文
+https://blog.csdn.net/puppet_master/article/details/54000951
