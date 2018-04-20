@@ -21,5 +21,108 @@
 
 那么，对于给定的水面上一点的坐标（x,y)，我们就能计算出它对应的高度了。
 
+### 计算法线
+尽管这里只讲怎么生成波形，暂时用不到水面的法线和切线，但还是把相关的数学知识一并说了。
+我们知道，对于空间曲线F(x, y, z)来说，法线定义为n = (Fx, Fy, Fz)。即：
+
+![img01](http://www.cherryfrog.net/images/blogs/water/ripple/sinWave06.png)
+
+具体计算结果为：
+
+![img01](http://www.cherryfrog.net/images/blogs/water/ripple/sinWave07.png)
+
 ## 实践
 我们使用一个顶点数足够多的平面面片来作为水面的模型（如果没有现成的模型，也可以直接选择菜单栏的GameOjbect -> 3D Ojbect -> Plane创建Unity内置的平面面片）。
+新建一个shader：
+```
+Shader "SingleSinWave"
+{
+	Properties
+	{
+		_Color ("Color Tint", Color) = (1, 1, 1, 1)
+		_Amplify ("Wave Amplify", float) = 0.5
+		_Frequency ("Wave Frequency", float) = 1
+		_Speed ("Wave Speed", float) = 1
+		_Center ("Wave Center", Vector) = (1,1,0,0)
+	}
+	SubShader
+	{
+		Pass
+		{
+			CGPROGRAM
+			#pragma vertex vert
+			#pragma fragment frag
+			
+			#include "UnityCG.cginc"
+			#include "Lighting.cginc"
+		
+			fixed4 _Color;
+			float _Amplify;
+			float _Frequency;
+			float _Speed;
+			half4 _Center;
+
+			struct appdata
+			{
+				float4 vertex : POSITION;
+			};
+
+			struct v2f
+			{
+				float4 pos : SV_POSITION;
+				float3 worldPos : TEXCOORD0;
+			};
+			   
+			 /*
+			  * 计算正弦波
+				* 返回值：
+				* x：顶点的y值
+				* yzw： 顶点的法线
+				*/
+			inline half4 sinWave(half2 worldPos)
+			{
+				half4 retVal;
+				half dist = distance(worldPos, _Center.xy);
+				retVal.x = _Amplify * sin(_Frequency * dist + _Speed * _Time.y);
+				retVal.y = -_Amplify * cos(_Frequency * dist + _Speed * _Time.y) * _Frequency * (worldPos.x - _Center.x) * (1 / dist);
+				retVal.z = 1;
+				retVal.w = -_Amplify * cos(_Frequency * dist + _Speed * _Time.y) * _Frequency * (worldPos.y - _Center.y) * (1 / dist);
+				return retVal;
+			}
+			
+			v2f vert (appdata v)
+			{
+				v2f o;
+
+				o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
+
+				half4 waveData = sinWave(o.worldPos.xz);
+
+				v.vertex.y += waveData.x;
+
+				o.pos = UnityObjectToClipPos(v.vertex);
+				
+				//o.worldNormal = UnityObjectToWorldNormal(waveData.yzw);
+				o.worldNormal = waveData.yzw;
+
+				o.worldViewDir = UnityWorldSpaceViewDir(o.worldPos);
+
+				// Compute the reflect dir in world space
+				o.worldRefl = reflect(-o.worldViewDir, o.worldNormal);
+
+				TRANSFER_SHADOW(o);
+
+				return o;
+			}
+			
+			fixed4 frag (v2f i) : SV_Target
+			{
+				return _Color;
+			}
+			ENDCG
+		}
+	}
+}
+```
+_Amplify表示振幅，_Freqency表示波峰间隔，_Speed用于控制速度，_Center向量表示波的中心位置（我们只使用它的x和y分量来储存位置）。sinWave函数用于计算波纹在y轴上的高度以及法线。它的返回值是half4类型的，第一个分量返回正弦曲面的y值，后面三个分量返回法线向量。具体的计算过程和前一节给出的公式是一样的，就不说了。
+因为这篇文章只讨论波纹的生成，这里的片元着色器写的非常简单。编写完shader后，回到Unity编辑器，新建一个材质，把shader赋给材质；然后把材质赋给场景中的平面。在Scene窗口中设置ShadingMode为Wirefame，运行游戏，可以在Secne窗口中看到一个飘动的水面了。
