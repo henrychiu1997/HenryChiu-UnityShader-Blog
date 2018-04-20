@@ -7,5 +7,10 @@
 
 其中，A表示振幅，ω表示角速度（可以看作频率），φ表示初相。
 现在把正弦波推广到空间曲面：
+![img01](http://www.cherryfrog.net/images/blogs/water/ripple/sinWave03.png)
 
-在Unity中，xz平面才是水平面，y轴是垂直方向。因此，把上面的曲面函数改写为如下形式：
+注意，在Unity中，xz平面才是世界空间下的水平面，y轴是垂直方向。因此，把上面的曲面函数改写为如下形式：
+![img01](http://www.cherryfrog.net/images/blogs/water/ripple/sinWave04.png)
+
+其隐函数形式为：
+![img01](http://www.cherryfrog.net/images/blogs/water/ripple/sinWave05.png)
