@@ -10,7 +10,7 @@
 
 ![img01](http://www.cherryfrog.net/images/blogs/water/ripple/sinWave03.png)
 
-其中，（x0, y0)点是正弦曲面的原点。
+其中，(x0, y0)点是正弦曲面的原点。
 注意，在Unity中，xz平面才是世界空间下的水平面，y轴是垂直方向。因此，把上面的曲面函数改写为如下形式：
 
 ![img01](http://www.cherryfrog.net/images/blogs/water/ripple/sinWave04.png)
@@ -119,3 +119,9 @@ Shader "SingleSinWave"
 _Amplify表示振幅，_Freqency表示波峰间隔，_Speed用于控制速度，_Center向量表示波的中心位置（我们只使用它的x和y分量来储存位置）。sinWave函数用于计算波纹在y轴上的高度以及法线。它的返回值是half4类型的，第一个分量返回正弦曲面的y值，后面三个分量返回法线向量。具体的计算过程和前一节给出的公式是一样的，就不说了。注意sinWave函数输入是世界空间下的水面的xz坐标，也就是说，波纹的生成是在世界空间下完成的。
 
 因为这篇文章只讨论波纹的生成，这里的片元着色器写的非常简单。编写完shader后，回到Unity编辑器，新建一个材质，把shader赋给材质；然后把材质赋给场景中的平面。在Scene窗口中设置ShadingMode为Wirefame，运行游戏，可以在Secne窗口中看到一个飘动的水面了。
+
+## 波的叠加
+单个正弦波往往并不能满足需要，那么就需要叠加多个正弦波，获得更真实的水面波纹。叠加方法很简单，将多个波函数相加，即可得到最终的叠加波函数。对于叠加波，它们的法线、切线和次切线等于这些波的法线、切线和次切线的和。
+
+## 参考资料
+https://developer.nvidia.com/gpugems/GPUGems/gpugems_ch01.html
