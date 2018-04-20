@@ -7,10 +7,19 @@
 
 其中，A表示振幅，ω表示角速度（可以看作频率），φ表示初相。
 现在把正弦波推广到空间曲面：
+
 ![img01](http://www.cherryfrog.net/images/blogs/water/ripple/sinWave03.png)
 
+其中，（x0, y0)点是正弦曲面的原点。
 注意，在Unity中，xz平面才是世界空间下的水平面，y轴是垂直方向。因此，把上面的曲面函数改写为如下形式：
+
 ![img01](http://www.cherryfrog.net/images/blogs/water/ripple/sinWave04.png)
 
 其隐函数形式为：
+
 ![img01](http://www.cherryfrog.net/images/blogs/water/ripple/sinWave05.png)
+
+那么，对于给定的水面上一点的坐标（x,y)，我们就能计算出它对应的高度了。
+
+## 实践
+我们使用一个顶点数足够多的平面面片来作为水面的模型（如果没有现成的模型，也可以直接选择菜单栏的GameOjbect -> 3D Ojbect -> Plane创建Unity内置的平面面片）。
