@@ -8,7 +8,7 @@
 * **边缘光（Rim Light）**
 * **使用额外pass渲染**
 * **图像后处理（Post-processing）**
-* **基于深度信息的边缘检测**
+* **基于深度信息的边缘检测（EdgeDetection）**
 
 对应的文章分别是：RimLight.md，ExtraPass.md，PostProcessing.md，EdgeDetectionUsingDepth.md。
 
