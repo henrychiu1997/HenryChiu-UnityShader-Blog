@@ -8,7 +8,8 @@
 * **边缘光（Rim Light）**
 * **使用额外pass渲染**
 * **图像后处理（Post-processing）**
+* **基于深度信息的边缘检测**
 
-对应的文章分别是：RimLight.md，ExtraPass.md，PostProcessing.md。
+对应的文章分别是：RimLight.md，ExtraPass.md，PostProcessing.md，EdgeDetectionUsingDepth.md。
 
 其中边缘光是最简单最快的一种描边方法，但通常情况下也是效果最差的（具体还得看项目需求）。额外pass的方法略显复杂，但效果不错。基于图像后处理的方法相比而言更加复杂，但可以实现更好的效果。
