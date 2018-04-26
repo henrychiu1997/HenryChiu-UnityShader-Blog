@@ -13,7 +13,7 @@
 
 其中，
 
-![img-f02](http://www.cherryfrog.net/images/blogs/water/ripple/fft-f02.png)
+![img-f02](http://www.cherryfrog.net/images/blogs/water/ripple/fft-f03.png)
 
 n和m分别是位于区间\[-N/2, N/2]和\[-M/2, M/2]之间的整数。N和M是海浪高度纹理图的长宽，一般取值16到2048间，需为2的次方。
 Lx和Lz是要模拟的海面的长度和宽度，这个取值可以根据实际情况来。
