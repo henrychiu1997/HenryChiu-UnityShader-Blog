@@ -32,6 +32,6 @@ worldNormal = normalize(fixed3(dot(i.TtoW0.xyz, worldNormal), dot(i.TtoW1.xyz, w
 
 可以在顶点着色器中对法线贴图的uv坐标进行偏移，以实现扰动随波飘动的效果：
 ```
-o.uv = TRANSFORM_TEX(v.texcoord, _NormalTex);
+o.uv = o.uv - _Time.yy * 0.5;
 ```
 完整的代码可以在Scripts/waterWithNomralTex.shader文件下找到。
